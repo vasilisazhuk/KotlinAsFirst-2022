@@ -126,6 +126,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
 
+
 /**
  * Простая (2 балла)
  *

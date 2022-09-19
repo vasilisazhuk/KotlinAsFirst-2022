@@ -3,6 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -87,8 +88,16 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
-
+): Double {
+    val HaflWay: Double = (t1*v1 + t2*v2 + t3*v3)/2
+    return when {
+        (HaflWay < t1*v1) -> ( HaflWay/v1)
+        (HaflWay == t1*v1) -> t1
+        (HaflWay > t1*v1 && HaflWay < t2*v2+t1*v1) -> ((HaflWay - t1*v1)/v2) + t1
+        (HaflWay == v2*t1 + t1*v1) -> t2 + t1
+        else  -> ((HaflWay - t1*v1 - t2*v2) /v3) +t1 + t2
+    }
+}
 /**
  * Простая (2 балла)
  *
@@ -125,9 +134,19 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    val a: Int = abs(kingX - bishopX)
+    val b: Int = abs(kingY - bishopY)
+    return when {
+        (kingX == rookX || kingY == rookY) -> 1
+        a == b -> 2
+        ((kingX == rookX && a == b) || (kingY == rookY && a == b)) -> 3
+        else -> 0
+    }
+}
 
-/**
+
+    /**
  * Простая (2 балла)
  *
  * Треугольник задан длинами своих сторон a, b, c.
@@ -135,7 +154,16 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+        val a2 = a*a
+        val b2 = b*b
+        val c2 = c*c
+        return when {
+            !(a+b > c && a+c >b && b+c > a) -> -1
+            (a2 == b2+c2 || b2 == c2+a2 || c2 == a2+b2) -> 1
+            (a2 > b2 + c2 || b2 > c2+a2 || c2 > a2 + b2) -> 2
+            else -> 0
+        }
 
 /**
  * Средняя (3 балла)
@@ -145,12 +173,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
-    (c in a..b || d in a..b) -> d - c
-    (b <= d && a >= c) -> b - a
-    (a > d || b < c) -> -1
-    (b >= d && a >= c) -> d - a
-    (b >= d && a <= c) -> c - d
-    (a == d || b == c) -> 1
-    else -> b - c
+
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int { return when {
+        ((c in a..b) && (d in a..b)) -> d - c
+        ((a in c..d) && (b in c..d)) -> b - a
+        ((a in c..d) && (b > d)) -> d - a
+        ((b in c..d) && (a < c)) -> b - c
+        else -> -1
+    }
 }
+
+
