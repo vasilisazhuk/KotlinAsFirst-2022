@@ -67,7 +67,8 @@ fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
 ): Boolean {
-    if (sqrt(sqr(x1 - x2) + sqr(y1 - y2)) == (r1 + r2)) return true
+    if (x1 == x2 && y1 == y2) return true
+    else if (sqrt(sqr(x1 - x2) + sqr(y1 - y2)) == (r1 + r2)) return true
     else return false
 
 }
@@ -82,6 +83,10 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if ((a <= s && (b <= r || c <= r)) || (b <= s && (a <= r || c <= r)) || (c <= s || (a <= r && b <= r))) return true
-    else return false
+    when {
+        (a == r && b == s) || (a == r && c == s) -> return true
+        (b == r && a == s) || (b == r && c == s) -> return true
+        (c == r && a == s) || (c == r && b == s) -> return true
+        else -> return false
+    }
 }
