@@ -146,8 +146,8 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var nok: Int = 2
-    while(nok <= m*n) {
+    var nok: Int = 1
+    while(nok <= m * n) {
      if ((nok % m == 0) && (nok % n == 0)) return nok
         else nok += 1
     }
