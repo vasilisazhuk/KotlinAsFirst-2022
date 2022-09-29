@@ -70,12 +70,10 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String = when {
-    age == 1 -> "$age год"
-    age in 2..4 -> "$age года"
-    age in 5..20 -> "$age лет"
-    (age % 10 in 2..4) && (age <= 100) -> "$age года"
-    (age % 100 in 11..20) && (age >= 100) -> "$age лет"
-    age % 10 == 1 -> "$age год"
+    age % 10 == 1 && age % 100 != 11 -> "$age год"
+    age % 100 in 10..20 -> "$age лет"
+    age % 10 in 2..4 && age % 100 !in 10..20 -> "$age года"
+    age % 10 in 6..9 && age % 100 !in 10..20 -> "$age лет"
     else -> "$age лет"
 }
 
@@ -91,13 +89,13 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val HaflWay: Double = (t1*v1 + t2*v2 + t3*v3)/2
+    val HaflWay: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     return when {
-        (HaflWay < t1*v1) -> ( HaflWay/v1)
-        (HaflWay == t1*v1) -> t1
-        (HaflWay > t1*v1 && HaflWay < t2*v2+t1*v1) -> ((HaflWay - t1*v1)/v2) + t1
-        (HaflWay == v2*t1 + t1*v1) -> t2 + t1
-        else -> ((HaflWay - t1*v1 - t2*v2) /v3) +t1 + t2
+        (HaflWay < t1 * v1) -> (HaflWay / v1)
+        (HaflWay == t1 * v1) -> t1
+        (HaflWay > t1 * v1 && HaflWay < t2 * v2 + t1 * v1) -> ((HaflWay - t1 * v1) / v2) + t1
+        (HaflWay == v2 * t1 + t1 * v1) -> t2 + t1
+        else -> ((HaflWay - t1 * v1 - t2 * v2) / v3) + t1 + t2
     }
 }
 /**

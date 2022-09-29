@@ -203,8 +203,7 @@ fun hasDifferentDigits(n: Int): Boolean {
     var penultimateDigit = n / 10
     if (n in 0..9) return false
     else while (penultimateDigit > 0) {
-        lastDigit == penultimateDigit % 10 &&
-        return true
+        if (lastDigit == penultimateDigit % 10) return true
         penultimateDigit /= 10
     }
     return false
