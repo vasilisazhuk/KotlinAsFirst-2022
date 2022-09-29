@@ -26,8 +26,7 @@ fun isNumberHappy(number: Int): Boolean {
     val c = ((number % 100) - d) / 10
     val b = ((number % 1000) - (c + d)) / 100
     val a = (number - b * 100 - c * 10 - d) / 1000
-    val happyNumber = true
-    if (a + b == c + d) return happyNumber
+    if (a + b == c + d) return a + b == c + d
     else return false
 }
 
@@ -39,8 +38,8 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    val vertical: Boolean = (y1 == y2)
-    val horizontal: Boolean = (x1 == x2)
+    val vertical = y1 == y2
+    val horizontal = x1 == x2
     val diagonal: Boolean = (abs(x1 - x2) == abs(y1 - y2))
     if (vertical == true || horizontal == true || diagonal == true)
         return true
