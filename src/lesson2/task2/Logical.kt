@@ -70,7 +70,6 @@ fun circleInside(
     if ((x1 == x2 && y1 == y2) && (r1 <= r2)) return true
     else if (sqrt(sqr(x1 - x2) + sqr(y1 - y2)) <= (r2 - r1)) return true
     else return false
-
 }
 
 /**

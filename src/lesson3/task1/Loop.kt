@@ -72,23 +72,48 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
-
+fun digitNumber(n: Int): Int {
+    var m: Int = 0
+    var digit = n
+    if (n == 0) m = 1
+    else while (digit != 0) {
+        digit /= 10
+        m += 1
+    }
+    return m
+}
 /**
  * Простая (2 балла)
- *
+ *+
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var a1: Int = 1
+    var a2: Int = 1
+    var a3: Int = 1
+    if (n == 1 || n == 2) a3 = 1
+    else for (i in 3..n) {
+        a3 = a1 + a2
+        a1 = a2
+        a2 = a3
+    }
+    return a3
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
-
+fun minDivisor(n: Int): Int {
+    var divider: Int = 2
+    while (divider <= n) {
+        if (n % divider == 0) return divider
+            else divider += 1
+    }
+    return divider
+}
 /**
  * Простая (2 балла)
  *
@@ -116,20 +141,34 @@ fun collatzSteps(x: Int): Int = TODO()
 
 /**
  * Средняя (3 балла)
- *
+ *+
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var nok: Int = 2
+    while(nok <= m*n) {
+     if ((nok % m == 0) && (nok % n == 0)) return nok
+        else nok += 1
+    }
+    return nok
+}
 
 /**
  * Средняя (3 балла)
- *
+ *+
  * Определить, являются ли два заданных числа m и n взаимно простыми.
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var divider = 2
+    while (divider <= n && divider <= m){
+        if (n % divider == 0 && m % divider == 0) return false
+            else divider += 1
+    }
+    return true
+}
 
 /**
  * Средняя (3 балла)
@@ -159,7 +198,17 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val lastDigit = n % 10
+    var penultimateDigit = n / 10
+    if (n in 0..9) return false
+    else while (penultimateDigit > 0) {
+        lastDigit == penultimateDigit % 10 &&
+        return true
+        penultimateDigit /= 10
+    }
+    return false
+}
 
 /**
  * Средняя (4 балла)
