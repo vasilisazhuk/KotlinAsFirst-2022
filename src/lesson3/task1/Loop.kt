@@ -84,7 +84,7 @@ fun digitNumber(n: Int): Int {
 }
 /**
  * Простая (2 балла)
- *+
+ *
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
@@ -141,13 +141,14 @@ fun collatzSteps(x: Int): Int = TODO()
 
 /**
  * Средняя (3 балла)
- *+
+ *
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
     var nok: Int = 1
-    while(nok <= m * n) {
+    if (m == 1 || n == 1) return n * m
+    else while (nok <= m * n) {
      if ((nok % m == 0) && (nok % n == 0)) return nok
         else nok += 1
     }
@@ -163,7 +164,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var divider = 2
-    while (divider <= n && divider <= m){
+    while (divider <= n && divider <= m) {
         if (n % divider == 0 && m % divider == 0) return false
             else divider += 1
     }
@@ -192,21 +193,21 @@ fun isPalindrome(n: Int): Boolean = TODO()
 
 /**
  * Средняя (3 балла)
- *
+ *???? проблема в числах состоящих из одинаковых цифр
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    val lastDigit = n % 10
-    var penultimateDigit = n / 10
+    val lastDigit = n % 10 //7
+    var penultimateDigit = n / 10 //77
     if (n in 0..9) return false
-    else while (penultimateDigit > 0) {
-        if (lastDigit == penultimateDigit % 10) return true
+    else while (penultimateDigit >= 0) {
+        if (lastDigit != penultimateDigit % 10) return true
         penultimateDigit /= 10
     }
-    return false
+    return lastDigit == penultimateDigit / 10
 }
 
 /**
