@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -119,7 +121,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -146,9 +148,9 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var nok: Int = 1
+    var nok: Int = min(m, n)
     if (m == 1 || n == 1) return n * m
-    else while (nok <= m * n) {
+    else while (nok in min(n,m)..m * n) {
      if ((nok % m == 0) && (nok % n == 0)) return nok
         else nok += 1
     }
