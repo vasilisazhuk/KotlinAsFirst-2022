@@ -151,6 +151,7 @@ fun lcm(m: Int, n: Int): Int {
     var nok: Int = min(m, n)
     var nod: Int = 2
     if (m == 1 || n == 1 || isCoPrime(n,m) == true ) return n * m
+    else if (m == n) return m
     else while (nod in 2..max(n,m)) {
         if ((n % nod == 0) && (m % nod == 0)) return n * m / nod
         else nod += 1
