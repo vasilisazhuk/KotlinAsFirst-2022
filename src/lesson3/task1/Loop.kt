@@ -149,11 +149,11 @@ fun collatzSteps(x: Int): Int = TODO()
  */
 fun lcm(m: Int, n: Int): Int {
     var nok: Int = min(m, n)
-    var nod: Int = 2
-    if (isCoPrime(n,m) == true ) return n * m
+    var nod: Int = minDivisor(min(n,m))
+    if (isCoPrime(n, m) == true ) return n * m
     else if (m == n) return m
     else if (m % n == 0 || n % m == 0) return max(n, m)
-    else while (nod in 2..max(n,m)) {
+    else while (nod in minDivisor(min(n,m))..max(n, m)) {
         if ((n % nod == 0) && (m % nod == 0)) return n * m / nod
         else nod += 1
     }
