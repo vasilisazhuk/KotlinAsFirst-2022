@@ -149,13 +149,16 @@ fun collatzSteps(x: Int): Int = TODO()
  */
 fun lcm(m: Int, n: Int): Int {
     var nok: Int = min(m, n)
-    if (m == 1 || n == 1) return n * m
-    else while (nok in min(n,m)..m * n) {
-     if ((nok % m == 0) && (nok % n == 0)) return nok
-        else nok += 1
+    var nod: Int = 2
+    if (m == 1 || n == 1 || isCoPrime(n,m) == true ) return n * m
+    else while (nod in 2..max(n,m)) {
+        if ((n % nod == 0) && (m % nod == 0)) return n * m / nod
+        else nod += 1
     }
     return nok
 }
+
+
 
 /**
  * Средняя (3 балла)
@@ -221,7 +224,7 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double = TODO ()
 
 /**
  * Средняя (4 балла)
