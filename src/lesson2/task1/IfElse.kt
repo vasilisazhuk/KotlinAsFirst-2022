@@ -89,7 +89,7 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val haflWay: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    val haflWay = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     return when {
         (haflWay < t1 * v1) -> (haflWay / v1)
         (haflWay == t1 * v1) -> t1

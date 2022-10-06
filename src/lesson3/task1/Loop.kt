@@ -2,9 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -94,7 +92,7 @@ fun fib(n: Int): Int {
     var a1: Int = 1
     var a2: Int = 1
     var a3: Int = 1
-    if (n == 1 || n == 2) a3 = 1
+    if (n == 1 || n == 2) 1
     else for (i in 3..n) {
         a3 = a1 + a2
         a1 = a2
@@ -149,7 +147,7 @@ fun collatzSteps(x: Int): Int = TODO()
  */
 fun lcm(m: Int, n: Int): Int {
     var nok: Int = min(m, n)
-    fun nod (n: Int, m: Int): Int {
+    fun nod(n: Int, m: Int): Int {
         var nod: Int = maxDivisor(max(n, m))
         while (nod in minDivisor(max(n, m))..max(n, m)) {
             if ((n % nod == 0) && (m % nod == 0)) return nod
@@ -157,11 +155,12 @@ fun lcm(m: Int, n: Int): Int {
         }
         return nod
     }
-    if (isCoPrime(n, m) == true ) return n * m
-    else if (m == n) return m
-    else if (m % n == 0 || n % m == 0) return max(n, m)
-    else return n * m/ nod(n,m)
-    return nok
+    return when {
+        (isCoPrime(n, m) == true ) -> n * m
+        (m == n) -> m
+        (m % n == 0 || n % m == 0) -> max(n, m)
+        else -> n * m / nod(n, m)
+    }
 }
 
 
@@ -230,7 +229,28 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO ()
+fun sin(x: Double, eps: Double): Double {
+    var n1 = 1
+    var n2 = 3
+    var sin1 = 0.0
+    var sin2 = 0.0
+    var actualX = x % (PI * 2)
+    when {
+        actualX == PI -> sin1 = 0.0
+        actualX == PI / 2.0 -> sin1 = 1.0
+        actualX == PI * (3.0 / 2.0) -> sin1 = -1.0
+        else -> do {
+            sin2 = actualX.pow(n1) / factorial(n1)
+            n1 += 4
+            sin1 = sin2
+            sin2 -= actualX.pow(abs(n2)) / factorial(abs(n2))
+            n2 += 4
+            return sin1
+        } while (sin2 - sin1 > eps)
+    }
+    return sin1
+}
+
 
 /**
  * Средняя (4 балла)
@@ -241,7 +261,11 @@ fun sin(x: Double, eps: Double): Double = TODO ()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var cosX = 1 - (sin(x, eps)).pow(2)
+    if (x % (PI * 2.0) in (-PI * (1.0 / 2.0))..PI * (1.0 / 2.0)) return sqrt(cosX)
+    else return -sqrt(cosX)
+}
 
 /**
  * Сложная (4 балла)
