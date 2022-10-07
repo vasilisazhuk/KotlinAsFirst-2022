@@ -65,7 +65,7 @@ fun circleInside(
     x2: Double, y2: Double, r2: Double
 ): Boolean {
     if ((x1 == x2 && y1 == y2) && (r1 <= r2)) return true
-    else if (trackLength(x1, y1, x2, y2) <= (r2 - r1)) return true
+    else if (trackLength(x2, y2, x1, y1) <= (r2 - r1)) return true
     else return false
 
 }
