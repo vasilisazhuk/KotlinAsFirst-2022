@@ -32,7 +32,7 @@ fun isNumberHappy(number: Int): Boolean {
 
 /**
  * Простая (2 балла)
- *?
+ *
  * На шахматной доске стоят два ферзя (ферзь бьет по вертикали, горизонтали и диагоналям).
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
@@ -41,9 +41,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
     val vertical = y1 == y2
     val horizontal = x1 == x2
     val diagonal: Boolean = (abs(x1 - x2) == abs(y1 - y2))
-    if (vertical == true || horizontal == true || diagonal == true)
-        return true
-    else return false
+    return vertical || horizontal || diagonal
 }
 
 

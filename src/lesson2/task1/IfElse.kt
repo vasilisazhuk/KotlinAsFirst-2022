@@ -149,15 +149,15 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-        val a2 = a * a
-        val b2 = b * b
-        val c2 = c * c
-        return when {
-            !(a + b > c && a + c > b && b + c > a) -> -1
-            (a2 == b2 + c2 || b2 == c2 + a2 || c2 == a2 + b2) -> 1
-            (a2 > b2 + c2 || b2 > c2 + a2 || c2 > a2 + b2) -> 2
-            else -> 0
-        }
+    val a2 = a * a
+    val b2 = b * b
+    val c2 = c * c
+    return when {
+        !(a + b > c && a + c > b && b + c > a) -> -1
+        (a2 == b2 + c2 || b2 == c2 + a2 || c2 == a2 + b2) -> 1
+        (a2 > b2 + c2 || b2 > c2 + a2 || c2 > a2 + b2) -> 2
+        else -> 0
+    }
 }
 
 /**

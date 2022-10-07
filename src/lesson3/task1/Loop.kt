@@ -109,8 +109,12 @@ fun fib(n: Int): Int {
 fun minDivisor(n: Int): Int {
     var divider: Int = 2
     while (divider <= n) {
-        if (n % divider == 0) return divider
-            else divider += 1
+        if (n % divider == 0) {
+            return divider
+        }
+        else {
+            divider += 1
+        }
     }
     return divider
 }
@@ -150,8 +154,12 @@ fun lcm(m: Int, n: Int): Int {
     fun nod(n: Int, m: Int): Int {
         var nod: Int = maxDivisor(max(n, m))
         while (nod in minDivisor(max(n, m))..max(n, m)) {
-            if ((n % nod == 0) && (m % nod == 0)) return nod
-            else nod -= 1
+            if ((n % nod == 0) && (m % nod == 0)) {
+                return nod
+            }
+            else {
+                nod -= 1
+            }
         }
         return nod
     }
@@ -175,8 +183,12 @@ fun lcm(m: Int, n: Int): Int {
 fun isCoPrime(m: Int, n: Int): Boolean {
     var divider = 2
     while (divider <= n && divider <= m) {
-        if (n % divider == 0 && m % divider == 0) return false
-            else divider += 1
+        if (n % divider == 0 && m % divider == 0) {
+            return false
+        }
+            else {
+                divider += 1
+        }
     }
     return true
 }
