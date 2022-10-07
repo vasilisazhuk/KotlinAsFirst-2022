@@ -137,16 +137,7 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int {
-    val a: Int = abs(kingX - kingY)
-    val b: Int = abs(bishopX - bishopY)
-    return when {
-        (kingX == rookX || kingY == rookY) -> 1
-        a == b -> 2
-        ((kingX == rookX && a == b) || (kingY == rookY && a == b)) -> 3
-        else -> 0
-    }
-}
+): Int = TODO()
 
 
     /**
