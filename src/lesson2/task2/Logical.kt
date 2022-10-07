@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import lesson1.task1.trackLength
 import ru.spbstu.kotlin.generate.assume.retry
 import kotlin.math.abs
 import kotlin.math.sqrt
@@ -66,8 +67,9 @@ fun circleInside(
     x2: Double, y2: Double, r2: Double
 ): Boolean {
     if ((x1 == x2 && y1 == y2) && (r1 <= r2)) return true
-    else if (sqrt(sqr(x1 - x2) + sqr(y1 - y2)) <= (r2 - r1)) return true
+    else if ((trackLength(x1, y1, x2, y1)) <= (r2 - r1)) return true
     else return false
+
 }
 
 /**

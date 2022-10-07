@@ -92,7 +92,7 @@ fun fib(n: Int): Int {
     var a1: Int = 1
     var a2: Int = 1
     var a3: Int = 1
-    if (n == 1 || n == 2) 1
+    if (n == 1 || n == 2) return 1
     else for (i in 3..n) {
         a3 = a1 + a2
         a1 = a2
@@ -230,23 +230,28 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var n1 = 1
-    var n2 = 3
-    var sin1 = 0.0
-    var sin2 = 0.0
-    var actualX = x % (PI * 2)
+    var n = 3.0
+    var y = 1.0
+    var sin1: Double = 1.0
+    var actualX: Double = x
+    if (actualX !in -PI..PI) {
+        while (abs(actualX) !in -PI..PI) actualX = abs(actualX) - (2.0 * PI)
+        if (x < 0.0) actualX *= -1
+    }
+    else actualX = x
+    var deductible = (-1.0.pow(y)) * (actualX.pow(n) / factorial(n.toInt()))
     when {
         actualX == PI -> sin1 = 0.0
         actualX == PI / 2.0 -> sin1 = 1.0
-        actualX == PI * (3.0 / 2.0) -> sin1 = -1.0
-        else -> do {
-            sin2 = actualX.pow(n1) / factorial(n1)
-            n1 += 4
-            sin1 = sin2
-            sin2 -= actualX.pow(abs(n2)) / factorial(abs(n2))
-            n2 += 4
-            return sin1
-        } while (sin2 - sin1 > eps)
+        actualX == PI * (-1.0 / 2.0) -> sin1 = -1.0
+        abs(actualX) < 1.0 -> sin1 = actualX
+        else ->
+            do {
+                sin1 = sin1 + deductible
+                n += 2.0
+                y += 1.0
+                return sin1
+            } while (deductible > eps)
     }
     return sin1
 }
