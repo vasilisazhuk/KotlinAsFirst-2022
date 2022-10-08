@@ -222,17 +222,16 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    val lastDigit = n % 10
-    var penultimateDigit = n / 10
-    if (n in 0..9) {
-        return false
-    } else while (penultimateDigit >= 0) {
-        if (lastDigit != penultimateDigit % 10) return true
-        else {
-            penultimateDigit /= 10
-        }
+    var lastDigit = 0
+    var number = n
+    if (n in 0..9) return false
+    while (number != 0) {
+        val previousDigit = number % 10
+        if (lastDigit != 0 && previousDigit != lastDigit) return true
+        lastDigit = previousDigit
+        number /= 10
     }
-    return lastDigit == penultimateDigit / 10
+    return false
 }
 
 /**
@@ -251,7 +250,7 @@ fun sin(x: Double, eps: Double): Double {
         actualX == 0.0 || actualX == PI || actualX == -PI -> 0.0
         actualX == PI / 2 || actualX == -3 * PI / 2 -> 1.0
         actualX == 3 * PI / 2 || actualX == -PI / 2 -> -1.0
-        else -> return if (actualX in 0.0..PI || actualX in -2 * PI..-PI) {
+        else -> return if (actualX in 0.0..PI || actualX in (-2 * PI)..-PI) {
             sqrt(sin2)
         } else {
             -sqrt(sin2)
@@ -304,4 +303,17 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var digit = 0
+    var a1: Int = 1
+    var a2: Int = 1
+    var a3: Int = 1
+    for (i in 3..n) {
+        a3 = a1 + a2
+        a1 = a2
+        a2 = a3
+    }
+    return a3
+    digit += digitNumber(a3)
+
+}
