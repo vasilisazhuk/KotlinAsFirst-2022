@@ -164,7 +164,7 @@ fun lcm(m: Int, n: Int): Int {
         return nod
     }
     return when {
-        (isCoPrime(n, m) == true ) -> n * m
+        (isCoPrime(n, m) == true) -> n * m
         (m == n) -> m
         (m % n == 0 || n % m == 0) -> max(n, m)
         else -> n * m / nod(n, m)
@@ -222,12 +222,15 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    val lastDigit = n % 10 //7
-    var penultimateDigit = n / 10 //77
-    if (n in 0..9) return false
-    else while (penultimateDigit >= 0) {
+    val lastDigit = n % 10
+    var penultimateDigit = n / 10
+    if (n in 0..9) {
+        return false
+    } else while (penultimateDigit >= 0) {
         if (lastDigit != penultimateDigit % 10) return true
-        penultimateDigit /= 10
+        else {
+            penultimateDigit /= 10
+        }
     }
     return lastDigit == penultimateDigit / 10
 }
@@ -242,30 +245,18 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var n = 3.0
-    var y = 1.0
-    var sin1: Double = 1.0
-    var actualX: Double = x
-    if (actualX !in -PI..PI) {
-        while (abs(actualX) !in -PI..PI) actualX = abs(actualX) - (2.0 * PI)
-        if (x < 0.0) actualX *= -1
+    val sin2 = (1.0 - (cos(x, eps).pow(2)))
+    val actualX = x % (2 * PI)
+    return when {
+        actualX == 0.0 || actualX == PI || actualX == -PI -> 0.0
+        actualX == PI / 2 || actualX == -3 * PI / 2 -> 1.0
+        actualX == 3 * PI / 2 || actualX == -PI / 2 -> -1.0
+        else -> return if (actualX in 0.0..PI || actualX in -2 * PI..-PI) {
+            sqrt(sin2)
+        } else {
+            -sqrt(sin2)
+        }
     }
-    else actualX = x
-    var deductible = (-1.0.pow(y)) * (actualX.pow(n) / factorial(n.toInt()))
-    when {
-        actualX == PI -> sin1 = 0.0
-        actualX == PI / 2.0 -> sin1 = 1.0
-        actualX == PI * (-1.0 / 2.0) -> sin1 = -1.0
-        abs(actualX) < 1.0 -> sin1 = actualX
-        else ->
-            do {
-                sin1 = sin1 + deductible
-                n += 2.0
-                y += 1.0
-                return sin1
-            } while (deductible > eps)
-    }
-    return sin1
 }
 
 
@@ -279,9 +270,18 @@ fun sin(x: Double, eps: Double): Double {
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
 fun cos(x: Double, eps: Double): Double {
-    var cosX = 1 - (sin(x, eps)).pow(2)
-    if (x % (PI * 2.0) in (-PI * (1.0 / 2.0))..PI * (1.0 / 2.0)) return sqrt(cosX)
-    else return -sqrt(cosX)
+    var degree = 1
+    var deductible = 1.0
+    var sin = deductible
+    val actualX = x % (2 * PI)
+    while (abs(deductible) > abs(eps)) {
+        val a = 2 * degree
+        val factorial = factorial(a)
+        deductible = (-1.0).pow(degree) * actualX.pow(a) / factorial
+        sin += deductible
+        degree++
+    }
+    return sin
 }
 
 /**
