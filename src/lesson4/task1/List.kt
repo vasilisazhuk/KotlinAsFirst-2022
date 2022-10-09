@@ -148,16 +148,11 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    when {
-        list.isEmpty() -> return list
-        else -> {
-            val saz = list.sum() / list.size
-            for (i in 0..list.size) {
-                list[i] -= saz
-            }
-            return list
-        }
+    val saz = mean(list)
+    for (i in 0 until list.size) {
+        list[i] -= saz
     }
+    return list
 }
 
 /**
@@ -167,7 +162,15 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var c = 0
+    if (a.isEmpty() || b.isEmpty()) return 0
+    else {
+        for (i in a.indices) c += a[i] * b[i]
+    }
+    return c
+}
+
 
 /**
  * Средняя (3 балла)

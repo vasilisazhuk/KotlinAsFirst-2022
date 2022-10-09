@@ -303,17 +303,12 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int {
-    var digit = 0
+fun fibSequenceDigit(n: Int): Int = TODO() /**{
+    var digit = 6
     var a1: Int = 1
     var a2: Int = 1
     var a3: Int = 1
-    for (i in 3..n) {
-        a3 = a1 + a2
-        a1 = a2
-        a2 = a3
+    if (n <= 6) return fib(n)
+    else while (n == digit) {
     }
-    return a3
-    digit += digitNumber(a3)
-
-}
+}*/
