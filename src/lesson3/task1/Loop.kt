@@ -244,18 +244,18 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    val sin2 = (1.0 - (cos(x, eps).pow(2)))
+    var degree = 1
+    var deductible = 1.0
+    var sin = deductible
     val actualX = x % (2 * PI)
-    return when {
-        actualX == 0.0 || actualX == PI || actualX == -PI -> 0.0
-        actualX == PI / 2 || actualX == -3 * PI / 2 -> 1.0
-        actualX == 3 * PI / 2 || actualX == -PI / 2 -> -1.0
-        else -> return if (actualX in 0.0..PI || actualX in (-2 * PI)..-PI) {
-            sqrt(sin2)
-        } else {
-            -sqrt(sin2)
-        }
+    while (abs(deductible) > abs(eps)) {
+        val a = 2 * degree + 1
+        val factorial = factorial(a)
+        deductible = (-1.0).pow(degree) * actualX.pow(a) / factorial
+        sin += deductible
+        degree++
     }
+    return sin
 }
 
 
@@ -271,16 +271,16 @@ fun sin(x: Double, eps: Double): Double {
 fun cos(x: Double, eps: Double): Double {
     var degree = 1
     var deductible = 1.0
-    var sin = deductible
+    var cos = deductible
     val actualX = x % (2 * PI)
     while (abs(deductible) > abs(eps)) {
         val a = 2 * degree
         val factorial = factorial(a)
         deductible = (-1.0).pow(degree) * actualX.pow(a) / factorial
-        sin += deductible
+        cos += deductible
         degree++
     }
-    return sin
+    return cos
 }
 
 /**
