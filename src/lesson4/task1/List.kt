@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.isPrime
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -201,7 +202,23 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    val multipliers = mutableListOf<Int>()
+    if (isPrime(n)) {
+        multipliers.add(n)
+        return multipliers
+    } else {
+        var i = 2
+        var number = n
+        while (number > 1) {
+            if (number % i == 0) {
+                multipliers.add(i)
+                number /= i
+            } else ++i
+        }
+    }
+    return multipliers
+}
 
 /**
  * Сложная (4 балла)
@@ -210,7 +227,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*", prefix = "", postfix = "")
 
 /**
  * Средняя (3 балла)
