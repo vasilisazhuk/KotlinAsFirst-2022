@@ -261,7 +261,7 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     val list = convert(n, base)
-    var result = ""
+    var result = mutableListOf<Any>()
     val abc = listOf<Char>(
         'a',
         'b',
@@ -297,7 +297,7 @@ fun convertToString(n: Int, base: Int): String {
             result += abc[list[i] - 10]
         }
     }
-    return result
+    return result.joinToString(separator = "", prefix = "", postfix = "")
 }
 
 
