@@ -137,7 +137,16 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    val threatFromBishopX = (kingX - bishopX) == (kingY - bishopY)
+    val threatFromBishopY = (kingX - bishopX) == -(kingY - bishopY)
+    return when {
+        (kingX == rookX || kingY == rookY) && threatFromBishopX == false && threatFromBishopY == false -> 1
+        (threatFromBishopX == true || threatFromBishopY == true) && rookX != kingX && rookY != kingY -> 2
+        (kingX == rookX || kingY == rookY) && (threatFromBishopX == true || threatFromBishopY == true) -> 3
+        else -> 0
+    }
+}
 
 
     /**

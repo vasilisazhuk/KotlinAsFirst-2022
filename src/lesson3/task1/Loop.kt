@@ -75,13 +75,14 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var m: Int = 0
     var digit = n
-    if (n == 0) m = 1
-    else while (digit != 0) {
+    if (n == 0) return 1
+    while (digit != 0) {
         digit /= 10
         m += 1
     }
     return m
 }
+
 /**
  * Простая (2 балла)
  *
@@ -93,7 +94,7 @@ fun fib(n: Int): Int {
     var a2: Int = 1
     var a3: Int = 1
     if (n == 1 || n == 2) return 1
-    else for (i in 3..n) {
+    for (i in 3..n) {
         a3 = a1 + a2
         a1 = a2
         a2 = a3
@@ -111,13 +112,13 @@ fun minDivisor(n: Int): Int {
     while (divider <= n) {
         if (n % divider == 0) {
             return divider
-        }
-        else {
+        } else {
             divider += 1
         }
     }
     return divider
 }
+
 /**
  * Простая (2 балла)
  *
@@ -156,8 +157,7 @@ fun lcm(m: Int, n: Int): Int {
         while (nod in minDivisor(max(n, m))..max(n, m)) {
             if ((n % nod == 0) && (m % nod == 0)) {
                 return nod
-            }
-            else {
+            } else {
                 nod -= 1
             }
         }
@@ -172,7 +172,6 @@ fun lcm(m: Int, n: Int): Int {
 }
 
 
-
 /**
  * Средняя (3 балла)
  *+
@@ -185,9 +184,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     while (divider <= n && divider <= m) {
         if (n % divider == 0 && m % divider == 0) {
             return false
-        }
-            else {
-                divider += 1
+        } else {
+            divider += 1
         }
     }
     return true
@@ -317,11 +315,11 @@ fun fibSequenceDigit(n: Int): Int {
     return number
 }
 /**{
-    var digit = 6
-    var a1: Int = 1
-    var a2: Int = 1
-    var a3: Int = 1
-    if (n <= 6) return fib(n)
-    else while (n == digit) {
-    }
+var digit = 6
+var a1: Int = 1
+var a2: Int = 1
+var a3: Int = 1
+if (n <= 6) return fib(n)
+else while (n == digit) {
+}
 }*/

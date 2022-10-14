@@ -40,7 +40,7 @@ fun isNumberHappy(number: Int): Boolean {
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
     val vertical = y1 == y2
     val horizontal = x1 == x2
-    val diagonal: Boolean = (abs(x1 - x2) == abs(y1 - y2))
+    val diagonal = (abs(x1 - x2) == abs(y1 - y2))
     return vertical || horizontal || diagonal
 }
 
@@ -64,10 +64,11 @@ fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
 ): Boolean {
-    if ((x1 == x2 && y1 == y2) && (r1 <= r2)) return true
-    else if (trackLength(x2, y2, x1, y1) <= (r2 - r1)) return true
-    else return false
-
+   return when {
+        ((x1 == x2 && y1 == y2) && (r1 <= r2)) -> true
+        (trackLength(x2, y2, x1, y1) <= (r2 - r1)) -> true
+        else -> false
+    }
 }
 
 /**
