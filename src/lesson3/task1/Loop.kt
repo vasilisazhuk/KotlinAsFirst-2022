@@ -242,19 +242,30 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    val actualX = x % (2 * PI)
-    val sin2 = 1 - (cos(actualX, eps) * cos(actualX, eps))
-    return when {
-        actualX == 0.0 || actualX == PI || actualX == -PI -> 0.0
-        actualX == PI / 2 || actualX == -3 * PI / 2 -> 1.0
-        actualX == 3 * PI / 2 || actualX == -PI / 2 -> -1.0
-        else -> return if (actualX in 0.0..PI || actualX in -2 * PI..-PI) {
-            sqrt(sin2)
-        } else {
-            -sqrt(sin2)
-        }
+    val actualX = x % (2.0 * PI)
+    var degree = 1
+    var deductible = 1.0
+    var sin = actualX
+    while (abs(deductible) > abs(eps)) {
+        val a = degree * 2 + 1
+        val factorial = factorial(a)
+        deductible = (-1.0).pow(degree) * (actualX.pow(a) / factorial)
+        sin += deductible
+        ++degree
     }
+    return sin
 }
+/**val sin2 = 1.0 - cos(actualX, eps).pow(2.0)
+return when {
+actualX == 0.0 || actualX == PI || actualX == -PI -> 0.0
+actualX == PI / 2.0 || actualX == -3.0 * PI / 2.0 -> 1.0
+actualX == 3.0 * PI / 2.0 || actualX == -PI / 2.0 -> -1.0
+else -> return if (actualX in 0.0..PI || actualX in -2.0 * PI..-PI) {
+sqrt(sin2)
+} else {
+-sqrt(sin2)
+}
+}*/
 
 
 /**
@@ -270,7 +281,7 @@ fun cos(x: Double, eps: Double): Double {
     var degree = 1
     var deductible = 1.0
     var cos = deductible
-    val actualX = x % (2 * PI)
+    val actualX = x % (2.0 * PI)
     while (abs(deductible) > abs(eps)) {
         val a = 2 * degree
         val factorial = factorial(a)

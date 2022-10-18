@@ -121,12 +121,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    when {
-        v.isEmpty() -> return 0.0
-        else -> return sqrt(v.sumOf { it * it })
-    }
-}
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
+
 
 /**
  * Простая (2 балла)
@@ -134,11 +130,10 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    when {
-        list.isEmpty() -> return 0.0
-        else -> return list.sum() / list.size
-    }
+    return if (list.isEmpty()) 0.0
+    else list.sum() / list.size
 }
+
 
 /**
  * Средняя (3 балла)
@@ -149,9 +144,9 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    val saz = mean(list)
+    val arithmeticMean = mean(list)
     for (i in 0 until list.size) {
-        list[i] -= saz
+        list[i] -= arithmeticMean
     }
     return list
 }
@@ -227,7 +222,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*", prefix = "", postfix = "")
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя (3 балла)
