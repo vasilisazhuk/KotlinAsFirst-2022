@@ -313,24 +313,32 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var counter = 0
-    var number = 1
-    while (number != n) {
-        var digit = fib(number)
-        while (digit != 0) {
-            digit / 10
-            ++counter
+    var digit = 2
+    var a1: Int = 1
+    var a2: Int = 1
+    var a3: Int = 1
+    fun digitA3(x: Int, specifiedDigit: Int): Int {
+        var a = digitNumber(x)
+        var actualX = x
+        while (a != specifiedDigit) {
+            actualX /= 10
+            --a
         }
-        number += 1
+        return actualX % 10
     }
-    return number
+    return if (n <= 6) fib(n)
+    else {
+        while (digit < n) {
+            a1 = a2
+            a2 = a3
+            a3 = a1 + a2
+            digit += digitNumber(a3)
+        }
+        if (n == digit) return a3 % 10
+        else {
+            val actualN = digit - n
+            digit = digitNumber(a3)
+            digitA3(a3, digitNumber(a3) - actualN)
+        }
+    }
 }
-/**{
-var digit = 6
-var a1: Int = 1
-var a2: Int = 1
-var a3: Int = 1
-if (n <= 6) return fib(n)
-else while (n == digit) {
-}
-}*/

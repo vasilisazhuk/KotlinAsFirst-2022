@@ -337,3 +337,8 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String = TODO()
+/**{
+val digits = n.toString()
+val list: List<Char> = digits.toList()
+}
+*/
