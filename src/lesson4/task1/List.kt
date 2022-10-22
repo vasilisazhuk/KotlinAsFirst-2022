@@ -158,15 +158,13 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int {
-    var c = 0
-    if (a.isEmpty() || b.isEmpty()) return 0
-    else {
-        for (i in a.indices) c += a[i] * b[i]
-    }
-    return c
+fun times(a: List<Int>, b: List<Int>): Int = a.indices.sumOf { i -> a[i] * b[i] }
+/** var c = 0
+if (a.isEmpty() || b.isEmpty()) return 0
+else {
+for (i in a.indices) c += a[i] * b[i]
 }
-
+return c*/
 
 /**
  * Средняя (3 балла)
@@ -285,14 +283,14 @@ fun convertToString(n: Int, base: Int): String {
         'y',
         'z'
     )
-    for (i in 0 until list.size) {
+    for (i in list.indices) {
         if (list[i] < 10) {
             result += list[i]
         } else {
             result += abc[list[i] - 10]
         }
     }
-    return result.joinToString(separator = "", prefix = "", postfix = "")
+    return result.joinToString()
 }
 
 
@@ -336,9 +334,10 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
-/**{
-val digits = n.toString()
-val list: List<Char> = digits.toList()
+fun russian(n: Int): String = TODO() /** {
+    val digits = n.toString()
+    val list: List<Char> = digits.toList()
+
 }
-*/
+ */
+
