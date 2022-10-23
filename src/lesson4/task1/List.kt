@@ -290,7 +290,7 @@ fun convertToString(n: Int, base: Int): String {
             result += abc[list[i] - 10]
         }
     }
-    return result.joinToString()
+    return result.joinToString(prefix = "", postfix = "", separator = "")
 }
 
 
