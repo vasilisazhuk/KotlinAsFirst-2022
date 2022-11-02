@@ -323,7 +323,7 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String {
+fun roman(n: Int): String = TODO() /**{
     var actualN = n
     val list = mutableListOf<String>()
     fun decomposeByBase(X: Int, base: Int): List<String> {
@@ -386,7 +386,7 @@ fun roman(n: Int): String {
         actualN -= base * (actualN / base)
     }
     return list.joinToString(separator = "")
-}
+}*/
 
 
 /**
