@@ -323,69 +323,14 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO() /**{
+fun roman(n: Int): String = TODO()
+/**{
+    val romanDigits = listOf<String>("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val correspondingDigit = listOf<Int>(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var actualN = n
-    val list = mutableListOf<String>()
-    fun decomposeByBase(X: Int, base: Int): List<String> {
-        val baseDigit = mapOf(
-            1 to "I", 4 to "IV", 5 to "V", 9 to "IX", 10 to "X", 40 to "XL", 50 to "L",
-            90 to "XC", 100 to "C", 400 to "CD", 500 to "D", 900 to "CM", 1000 to "M"
-        )
-        var a = X / base
-        val result = mutableListOf<String>()
-        while (a != 0) {
-            result[base]
-            --a
-        }
-        return result
-    }
-    while (actualN != 0) {
-        var base = 1
-        when {
-            actualN >= 1000 -> {
-                list + decomposeByBase(actualN, 1000)
-                base = 1000
-            }
-            actualN in 900..999 -> {
-                list + decomposeByBase(actualN, 900)
-                base = 900
-            }
-            actualN in 500..899 -> {
-                list + decomposeByBase(actualN, 500)
-                base = 500
-            }
-            actualN in 400..499 -> {
-                list + decomposeByBase(actualN, 400)
-                base = 400
-            }
-            actualN in 100..399 -> {
-                list + decomposeByBase(actualN, 100)
-                base = 100
-            }
-            actualN in 90..99 -> {
-                list + decomposeByBase(actualN, 90)
-                base = 90
-            }
-            actualN in 50..89 -> {
-                list + decomposeByBase(actualN, 50)
-                base = 50
-            }
-            actualN in 40..49 -> {
-                list + decomposeByBase(actualN, 40)
-                base = 40
-            }
-            actualN in 10..39 -> {
-                list + decomposeByBase(actualN, 10)
-                base = 10
-            }
-            actualN == 9 -> list + decomposeByBase(actualN, 9)
-            actualN in 5..8 -> list + decomposeByBase(actualN, 5)
-            actualN == 4 -> list + decomposeByBase(actualN, 4)
-            actualN in 1..3 -> list + decomposeByBase(actualN, 1)
-        }
-        actualN -= base * (actualN / base)
-    }
-    return list.joinToString(separator = "")
+    val result = mutableListOf<String>()
+    var romeDigitCounter = 0
+
 }*/
 
 
