@@ -80,14 +80,14 @@ fun invertPositives(list: MutableList<Int>) {
  *
  * Из имеющегося списка целых чисел, сформировать список их квадратов
  */
-fun squares(list: List<Int>) = list.map { it * it }
+//fun squares(list: List<Int>) = TODO()//list.map { it * it }
 
 /**
  * Пример
  *
  * Из имеющихся целых чисел, заданного через vararg-параметр, сформировать массив их квадратов
  */
-fun squares(vararg array: Int) = squares(array.toList()).toTypedArray()
+//fun squares(vararg array: Int) = TODO()//squares(array.toList()).toTypedArray()
 
 /**
  * Пример
@@ -252,7 +252,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String {
+fun convertToString(n: Int, base: Int): String = TODO() /**{
     val list = convert(n, base)
     var result = mutableListOf<Any>()
     val abc = listOf<Char>(
@@ -286,13 +286,11 @@ fun convertToString(n: Int, base: Int): String {
     for (i in list.indices) {
         if (list[i] < 10) {
             result += list[i]
-        } else {
-            result += abc[list[i] - 10]
+        } else
         }
-    }
     return result.joinToString(prefix = "", postfix = "", separator = "")
 }
-
+*/
 
 /**
  * Средняя (3 балла)
@@ -325,7 +323,71 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var actualN = n
+    val list = mutableListOf<String>()
+    fun decomposeByBase(X: Int, base: Int): List<String> {
+        val baseDigit = mapOf(
+            1 to "I", 4 to "IV", 5 to "V", 9 to "IX", 10 to "X", 40 to "XL", 50 to "L",
+            90 to "XC", 100 to "C", 400 to "CD", 500 to "D", 900 to "CM", 1000 to "M"
+        )
+        var a = X / base
+        val result = mutableListOf<String>()
+        while (a != 0) {
+            result[base]
+            --a
+        }
+        return result
+    }
+    while (actualN != 0) {
+        var base = 1
+        when {
+            actualN >= 1000 -> {
+                list + decomposeByBase(actualN, 1000)
+                base = 1000
+            }
+            actualN in 900..999 -> {
+                list + decomposeByBase(actualN, 900)
+                base = 900
+            }
+            actualN in 500..899 -> {
+                list + decomposeByBase(actualN, 500)
+                base = 500
+            }
+            actualN in 400..499 -> {
+                list + decomposeByBase(actualN, 400)
+                base = 400
+            }
+            actualN in 100..399 -> {
+                list + decomposeByBase(actualN, 100)
+                base = 100
+            }
+            actualN in 90..99 -> {
+                list + decomposeByBase(actualN, 90)
+                base = 90
+            }
+            actualN in 50..89 -> {
+                list + decomposeByBase(actualN, 50)
+                base = 50
+            }
+            actualN in 40..49 -> {
+                list + decomposeByBase(actualN, 40)
+                base = 40
+            }
+            actualN in 10..39 -> {
+                list + decomposeByBase(actualN, 10)
+                base = 10
+            }
+            actualN == 9 -> list + decomposeByBase(actualN, 9)
+            actualN in 5..8 -> list + decomposeByBase(actualN, 5)
+            actualN == 4 -> list + decomposeByBase(actualN, 4)
+            actualN in 1..3 -> list + decomposeByBase(actualN, 1)
+        }
+        actualN -= base * (actualN / base)
+    }
+    return list.joinToString(separator = "")
+}
+
 
 /**
  * Очень сложная (7 баллов)
@@ -334,10 +396,82 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO() /** {
-    val digits = n.toString()
-    val list: List<Char> = digits.toList()
-
+fun russian(n: Int): String {
+    val number = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val exceptions = listOf<String>(
+        "одиннадцать",
+        "двенадцать",
+        "тринадцать",
+        "четырнадцать",
+        "пятнадцать",
+        "шестнадцать",
+        "семнадцать",
+        "восемнадцать",
+        "девятнадцать"
+    )
+    val decade = listOf<String>(
+        "десять",
+        "двадцать",
+        "тридцать",
+        "сорок",
+        "пятьдесят",
+        "шестьдесят",
+        "семьдесят",
+        "восемьдесят",
+        "девяносто"
+    )
+    val hundred = listOf<String>(
+        "сто",
+        "двести",
+        "триста",
+        "четыреста",
+        "пятьсот",
+        "шестьсот",
+        "семьсот",
+        "восемьсот",
+        "девятьсот"
+    )
+    val thousand = listOf<String>("тысяча", "тысяч", "тысячи")
+    val result = mutableListOf<String>()
+    val f = n % 10
+    val e = ((n % 100) - f) / 10
+    val d = ((n % 1000) - (e * 10) - f) / 100
+    val c = ((n % 10000) - (d * 100) - (e * 10) - f) / 1000
+    val b = ((n % 100000) - (c * 1000) - (d * 100) - (e * 10) - f) / 10000
+    val a = n / 100000
+    //для тысяч
+    if (a != 0) result.add(hundred[a - 1])
+    if (b * 10 + c in 11..19) {
+        result.add(exceptions[c - 1])
+        result.add(thousand[1])
+    } else {
+        if (b != 0) result.add(decade[b - 1])
+        if (c != 0) {
+            when (c) {
+                1 -> result.add("одна")
+                2 -> result.add("две")
+                else -> result.add(number[c - 1])
+            }
+        }
+        if (a * 100 + b * 10 + c > 0) {
+            when (c) {
+                in 2..4 -> result.add(thousand[2])
+                in 5..9 -> result.add(thousand[1])
+                1 -> result.add(thousand[0])
+                0 -> result.add(thousand[1])
+            }
+        }
+    }
+    // для последних трех цифр
+    if (d != 0) result.add(hundred[d - 1])
+    if (e * 10 + f in 11..19) result.add(exceptions[f - 1])
+    else {
+        if (e != 0) result.add(decade[e - 1])
+        if (f != 0) result.add(number[f - 1])
+    }
+    return result.joinToString(separator = " ")
 }
- */
+
+
+
 
