@@ -73,7 +73,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var m: Int = 0
+    var m = 0
     var digit = n
     if (n == 0) return 1
     while (digit != 0) {
@@ -90,9 +90,9 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var a1: Int = 1
-    var a2: Int = 1
-    var a3: Int = 1
+    var a1 = 1
+    var a2 = 1
+    var a3 = 1
     if (n == 1 || n == 2) return 1
     for (i in 3..n) {
         a3 = a1 + a2
@@ -108,7 +108,7 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var divider: Int = 2
+    var divider = 2
     while (divider <= n) {
         if (n % divider == 0) {
             return divider
@@ -151,7 +151,6 @@ fun collatzSteps(x: Int): Int = TODO()
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var nok: Int = min(m, n)
     fun nod(n: Int, m: Int): Int {
         var nod: Int = maxDivisor(max(n, m))
         while (nod in minDivisor(max(n, m))..max(n, m)) {
@@ -255,17 +254,6 @@ fun sin(x: Double, eps: Double): Double {
     }
     return sin
 }
-/**val sin2 = 1.0 - cos(actualX, eps).pow(2.0)
-return when {
-actualX == 0.0 || actualX == PI || actualX == -PI -> 0.0
-actualX == PI / 2.0 || actualX == -3.0 * PI / 2.0 -> 1.0
-actualX == 3.0 * PI / 2.0 || actualX == -PI / 2.0 -> -1.0
-else -> return if (actualX in 0.0..PI || actualX in -2.0 * PI..-PI) {
-sqrt(sin2)
-} else {
--sqrt(sin2)
-}
-}*/
 
 
 /**
@@ -314,9 +302,9 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  */
 fun fibSequenceDigit(n: Int): Int {
     var digit = 2
-    var a1: Int = 1
-    var a2: Int = 1
-    var a3: Int = 1
+    var a1 = 1
+    var a2 = 1
+    var a3 = 1
     fun digitA3(x: Int, specifiedDigit: Int): Int {
         var a = digitNumber(x)
         var actualX = x

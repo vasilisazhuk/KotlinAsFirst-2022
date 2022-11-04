@@ -159,12 +159,6 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int = a.indices.sumOf { i -> a[i] * b[i] }
-/** var c = 0
-if (a.isEmpty() || b.isEmpty()) return 0
-else {
-for (i in a.indices) c += a[i] * b[i]
-}
-return c*/
 
 /**
  * Средняя (3 балла)
@@ -252,45 +246,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO() /**{
-    val list = convert(n, base)
-    var result = mutableListOf<Any>()
-    val abc = listOf<Char>(
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z'
-    )
-    for (i in list.indices) {
-        if (list[i] < 10) {
-            result += list[i]
-        } else
-        }
-    return result.joinToString(prefix = "", postfix = "", separator = "")
-}
-*/
+fun convertToString(n: Int, base: Int): String = TODO()
 
 /**
  * Средняя (3 балла)
