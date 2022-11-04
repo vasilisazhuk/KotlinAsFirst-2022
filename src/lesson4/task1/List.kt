@@ -303,8 +303,7 @@ return result.joinToString("")
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
-/**{
+fun russian(n: Int): String {
     val number = listOf<String>("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
     val exceptions = listOf<String>(
         "одиннадцать",
@@ -379,7 +378,6 @@ fun russian(n: Int): String = TODO()
     }
     return result.joinToString(separator = " ")
 }
-*/
 
 
 
