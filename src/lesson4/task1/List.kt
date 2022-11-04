@@ -323,15 +323,21 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
-/**{
+fun roman(n: Int): String {
     val romanDigits = listOf<String>("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     val correspondingDigit = listOf<Int>(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var actualN = n
     val result = mutableListOf<String>()
     var romeDigitCounter = 0
-
-}*/
+    while (actualN != 0) {
+        if (actualN - correspondingDigit[romeDigitCounter] >= 0) {
+            result += List(actualN / correspondingDigit[romeDigitCounter]) { romanDigits[romeDigitCounter] }
+        }
+        actualN -= (actualN / correspondingDigit[romeDigitCounter]) * correspondingDigit[romeDigitCounter]
+        ++romeDigitCounter
+    }
+return result.joinToString("")
+}
 
 
 /**
