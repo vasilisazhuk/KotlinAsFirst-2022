@@ -80,14 +80,14 @@ fun invertPositives(list: MutableList<Int>) {
  *
  * Из имеющегося списка целых чисел, сформировать список их квадратов
  */
-//fun squares(list: List<Int>) = TODO()//list.map { it * it }
+fun squares(list: List<Int>) = list.map { it * it }
 
 /**
  * Пример
  *
  * Из имеющихся целых чисел, заданного через vararg-параметр, сформировать массив их квадратов
  */
-//fun squares(vararg array: Int) = TODO()//squares(array.toList()).toTypedArray()
+fun squares(vararg array: Int) = squares(array.toList()).toTypedArray()
 
 /**
  * Пример
