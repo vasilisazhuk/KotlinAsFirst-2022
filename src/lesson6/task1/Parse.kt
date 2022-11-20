@@ -118,7 +118,9 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    if (jumps.contains(Regex("\\D+"))) return -1
+    if (!jumps.contains(Regex("\\d+")) || jumps.contains(Regex("""[^\d\s\-%]"""))) {
+        return -1
+    }
     val parts = Regex("[\\s\\-\\%]").split(jumps)
     val grade = mutableListOf<Int>()
     for (part in parts) {
@@ -138,7 +140,20 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    if (jumps.contains(Regex("""[^\d\s+\-%]""")) || !jumps.contains(Regex("\\d+"))) return -1
+    val successfulTry =
+        Regex("""\d+""").findAll(
+            Regex("""\d+ [-%]*\+""").findAll(jumps).map
+            { it.groupValues[0] }.joinToString()
+        ).map { it.groupValues[0] }.joinToString()
+    val parts = Regex(""", """).split(successfulTry)
+    val grades = mutableListOf<Int>()
+    for (part in parts) {
+        if (part.isNotEmpty()) grades.add(part.toInt())
+    }
+    return grades.max()
+}
 
 /**
  * Сложная (6 баллов)
