@@ -223,8 +223,8 @@ class Tests {
         assertEquals(
             "Мария",
             findCheapestStuff(
-                mapOf("Мария" to ("печенье" to 20.0), "Орео" to ("печенье" to 100.0)),
-                "печенье"
+                mapOf("Мария" to ("" to 20.0), "Орео" to ("торт" to 100.0)),
+                ""
             )
         )
     }
