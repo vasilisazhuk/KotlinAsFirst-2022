@@ -164,7 +164,14 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int = TODO()/**{
+    if (!expression.matches(Regex("""^\d+(( [+-] \d+)*)"""))) {
+        throw IllegalArgumentException(expression)
+    }
+    val listValues =
+    val listNumbers = mutableListOf<Int>()
+    return listNumbers.sum()
+}*/
 
 /**
  * Сложная (6 баллов)

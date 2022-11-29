@@ -220,11 +220,13 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     for ((name, description) in stuff) {
         if (description.first == kind) {
             prices.add(description.second)
-        } else return null
+        }
     }
-    val minPrice = prices.min()
-    for ((name, descriptions) in stuff) {
-        if (descriptions.first == kind && descriptions.second == minPrice) result = name
+    if (prices.isNotEmpty()) {
+        val minPrice = prices.min()
+        for ((name, descriptions) in stuff) {
+            if (descriptions.first == kind && descriptions.second == minPrice) result = name
+        }
     }
     return result
 }
