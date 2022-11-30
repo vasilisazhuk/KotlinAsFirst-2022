@@ -334,7 +334,6 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val map = mutableMapOf<Int, Int>()
     list.associateTo(map) { it to it }
     val actualList = listOf<Int>(0) + list
-    if (number == 0) return Pair(-1, -1)
     for (i in actualList.indices) {
         val exeptedNumber = number - actualList[i]
         if ((exeptedNumber in list) && actualList[i] != exeptedNumber) {
