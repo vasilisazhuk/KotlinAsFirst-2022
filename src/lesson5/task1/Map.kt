@@ -338,14 +338,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
             return min(list[i], exeptedNumber) to max(list[i], exeptedNumber)
     }
     return Pair(-1, -1)
-    /**val actualList = listOf<Int>(0) + list
-    for (i in actualList.indices) {
-        val exeptedNumber = number - actualList[i]
-        if ((exeptedNumber in list) && actualList[i] != exeptedNumber) {
-            return min(actualList[i], map.getValue(exeptedNumber)) to max(actualList[i], map.getValue(exeptedNumber))
-        }
-    }
-    return Pair(-1, -1)*/
+    /***/
 }
 
 
