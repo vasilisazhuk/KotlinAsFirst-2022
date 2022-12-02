@@ -164,14 +164,26 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()/**{
-    if (!expression.matches(Regex("""^\d+(( [+-] \d+)*)"""))) {
+fun counting(problematicStr: String): Int {
+    var result = mutableListOf<Int>()
+    for (part in problematicStr.split(" - ")) {
+        result.add(part.toInt())
+    }
+    return result.get(0) - result.get(1)
+}
+fun plusMinus(expression: String): Int {
+    if (!expression.matches(Regex("""^\d+(\s+[+\-]\s+(\d+))*$"""))) {
         throw IllegalArgumentException(expression)
     }
-    val listValues =
     val listNumbers = mutableListOf<Int>()
+    //if (expression.matches(Regex("""- \d+"""))) Regex(""" """).replace("", expression)
+    val parts = expression.split(" + ")
+    for (part in parts) {
+        if (part.contains(Regex("""\d+ - \d+"""))) listNumbers.add(counting(part))
+        else listNumbers.add(part.toInt())
+    }
     return listNumbers.sum()
-}*/
+}
 
 /**
  * Сложная (6 баллов)
