@@ -169,7 +169,7 @@ fun counting(problematicStr: String): Int {
     for (part in problematicStr.split(" - ")) {
         result.add(part.toInt())
     }
-    return result.get(0) - result.get(1)
+    return result[0] - result[1]
 }
 fun plusMinus(expression: String): Int {
     if (!expression.matches(Regex("""^\d+(\s+[+\-]\s+(\d+))*$"""))) {
