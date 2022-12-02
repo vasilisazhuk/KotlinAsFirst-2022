@@ -321,6 +321,7 @@ class Tests {
                     1
                 ), 0)
         )
+        assertEquals(Pair(1, 2), lesson5.task1.findSumOfTwo(listOf(1, 0, 0, 0), 0))
         assertEquals(
             Pair(-1, -1),
             findSumOfTwo(listOf(1, 2, 3), 6)
