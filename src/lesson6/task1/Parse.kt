@@ -169,7 +169,7 @@ fun counting(problematicStr: String): Int {
     for (part in problematicStr.split(" - ")) {
         result.add(part.toInt())
     }
-    return result[0] - result[1]
+    return result[0] - result.subList(fromIndex = 1, toIndex = result.size).sum()
 }
 fun plusMinus(expression: String): Int {
     if (!expression.matches(Regex("""^\d+(\s+[+\-]\s+(\d+))*$"""))) {
@@ -179,7 +179,7 @@ fun plusMinus(expression: String): Int {
     //if (expression.matches(Regex("""- \d+"""))) Regex(""" """).replace("", expression)
     val parts = expression.split(" + ")
     for (part in parts) {
-        if (part.contains(Regex("""\d+ - \d+"""))) listNumbers.add(counting(part))
+        if (part.contains(Regex("""\s?- \d+\s?"""))) listNumbers.add(counting(part))
         else listNumbers.add(part.toInt())
     }
     return listNumbers.sum()

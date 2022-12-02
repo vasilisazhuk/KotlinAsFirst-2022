@@ -89,7 +89,7 @@ class Tests {
     @Test
     @Tag("6")
     fun plusMinus() {
-        assertEquals(0, plusMinus("0"))
+        assertEquals(-2, plusMinus("0 - 1 - 1"))
         assertEquals(4, plusMinus("2 + 2"))
         assertEquals(6, plusMinus("2 + 31 - 40 + 13"))
         assertEquals(-1, plusMinus("0 - 1"))
