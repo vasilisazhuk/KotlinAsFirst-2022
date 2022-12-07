@@ -85,7 +85,7 @@ fun deleteMarked(inputName: String, outputName: String) {
  */
 fun timesInStr(inputStr: String, gotPattern: String): Int {
     var times = 0
-    if (inputStr.contains(gotPattern)){
+    if (inputStr.contains(gotPattern)) {
         val actualStr = inputStr
         var counter = 0
         while (counter < actualStr.toList().size){
@@ -109,7 +109,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
             if (line.toLowerCase().contains(key)) {
                 val times = timesInStr(line.toLowerCase(), key)
                 //((line.toLowerCase().length - line.toLowerCase().replace(key, "").length) / key.length)
-                result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times
+                result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times!!
             }
         }
     }
@@ -152,7 +152,7 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var maxStr = 0
 }
 
 /**
