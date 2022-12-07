@@ -88,7 +88,7 @@ fun timesInStr(inputStr: String, gotPattern: String): Int {
     if (inputStr.contains(gotPattern)) {
         val actualStr = inputStr
         var counter = 0
-        while (counter < actualStr.toList().size){
+        while (counter < actualStr.toList().size) {
             if (actualStr.startsWith(gotPattern, counter)) {
                 ++times
             }
@@ -106,11 +106,9 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
         val key = listOfSubstrings[i].toLowerCase()
         if (!result.contains(key)) result[listOfSubstrings[i]] = 0
         for (line in File(inputName).readLines()) {
-            if (line.toLowerCase().contains(key)) {
-                val times = timesInStr(line.toLowerCase(), key)
-                //((line.toLowerCase().length - line.toLowerCase().replace(key, "").length) / key.length)
-                result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times!!
-            }
+            val times = timesInStr(line.toLowerCase(), key)
+            //((line.toLowerCase().length - line.toLowerCase().replace(key, "").length) / key.length)
+            result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times
         }
     }
     return result
@@ -153,6 +151,9 @@ fun sibilants(inputName: String, outputName: String) {
  */
 fun centerFile(inputName: String, outputName: String) {
     var maxStr = 0
+    for (line in File(inputName).readLines()) {
+        if (line.length > maxStr) maxStr = line.length
+    }
 }
 
 /**
