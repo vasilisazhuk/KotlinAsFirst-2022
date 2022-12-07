@@ -102,9 +102,10 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val result = mutableMapOf<String, Int>()
     val text = File(inputName).readText().toLowerCase()
     val listOfSubstrings = substrings.toSet().toList()
-    for (i in substrings.indices) {
-        val key = listOfSubstrings[i].toLowerCase()
-        if (!result.contains(listOfSubstrings[i].toLowerCase())) result[listOfSubstrings[i]] = 0
+    for (i in listOfSubstrings.indices) {
+        if (!result.contains(listOfSubstrings[i].toLowerCase())) {
+            result[listOfSubstrings[i]] = 0
+        }
         for (line in File(inputName).readLines()) {
             if (line.toLowerCase().contains(listOfSubstrings[i].toLowerCase())) {
                 val times = timesInStr(line.toLowerCase(), listOfSubstrings[i].toLowerCase())
@@ -156,6 +157,12 @@ fun centerFile(inputName: String, outputName: String) {
     for (line in File(inputName).readLines()) {
         if (line.length > maxStr) maxStr = line.length
     }
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        val whiteSpace: Int = (maxStr - line.length) / 2
+
+    }
+    writer.close()
 }
 
 /**
