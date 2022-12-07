@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.util.regex.Pattern
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -82,7 +83,38 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun timesInStr(inputStr: String, gotPattern: String): Int {
+    var times = 0
+    if (inputStr.contains(gotPattern)){
+        val actualStr = inputStr
+        var counter = 0
+        while (counter < actualStr.toList().size){
+            if (actualStr.startsWith(gotPattern, counter)) {
+                ++times
+            }
+            ++counter
+            actualStr.toMutableList().removeFirst()
+        }
+    }
+    return times
+}
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    val text = File(inputName).readText().toLowerCase()
+    val listOfSubstrings = substrings.toSet().toList()
+    for (i in substrings.indices) {
+        val key = listOfSubstrings[i].toLowerCase()
+        if (!result.contains(key)) result[listOfSubstrings[i]] = 0
+        for (line in File(inputName).readLines()) {
+            if (line.toLowerCase().contains(key)) {
+                val times = timesInStr(line.toLowerCase(), key)
+                //((line.toLowerCase().length - line.toLowerCase().replace(key, "").length) / key.length)
+                result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times
+            }
+        }
+    }
+    return result
+}
 
 
 /**
