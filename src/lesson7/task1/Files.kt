@@ -100,14 +100,12 @@ fun timesInStr(inputStr: String, gotPattern: String): Int {
 
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val result = mutableMapOf<String, Int>()
-    val text = File(inputName).readText().toLowerCase()
     val listOfSubstrings = substrings.toSet().toList()
     for (i in listOfSubstrings.indices) {
         if (!result.contains(substrings[i])) result[listOfSubstrings[i]] = 0
         for (line in File(inputName).readLines()) {
             if (line.toLowerCase().contains(listOfSubstrings[i].toLowerCase())) {
                 val times = timesInStr(line.toLowerCase(), listOfSubstrings[i].toLowerCase())
-                //((line.toLowerCase().length - line.toLowerCase().replace(key, "").length) / key.length)
                 result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times
             }
         }
@@ -153,12 +151,14 @@ fun sibilants(inputName: String, outputName: String) {
 fun centerFile(inputName: String, outputName: String) {
     var maxStr = 0
     for (line in File(inputName).readLines()) {
-        if (line.length > maxStr) maxStr = line.length
+        if (line.trim().length > maxStr) maxStr = line.trim().length
     }
     val writer = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
-        val whiteSpace: Int = (maxStr - line.length) / 2
-
+        val whiteSpace = (maxStr - line.trim().length) / 2
+        writer.write(List(whiteSpace) { " " }.joinToString(separator = ""))
+        writer.write(line.trim())
+        writer.newLine()
     }
     writer.close()
 }
