@@ -186,7 +186,7 @@ fun lineBySegment(s: Segment): Line = TODO()
  * Построить прямую по двум точкам
  */
 fun lineByPoints(a: Point, b: Point): Line {
-    val angle = atan((b.y - a.y) / (b.x - a.x))
+    val angle = atan((b.y.toDouble() - a.y.toDouble()) / (b.x.toDouble() - a.x.toDouble()))
     return Line((b), angle)
 }
 
@@ -196,8 +196,8 @@ fun lineByPoints(a: Point, b: Point): Line {
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
 fun centrOfLine(a: Point, b: Point): Point {
-    val centerX = (a.x + b.x) / 2
-    val centerY = (a.y + b.y) / 2
+    val centerX = (a.x.toDouble() + b.x.toDouble()) / 2
+    val centerY = (a.y.toDouble() + b.y.toDouble()) / 2
     return Point(centerX, centerY)
 }
 fun bisectorByPoints(a: Point, b: Point): Line {
@@ -208,14 +208,14 @@ fun bisectorByPoints(a: Point, b: Point): Line {
     var point1 = Point(0.0, 0.0)
     var point2 = Point(0.0, 0.0)
     when {
-        b.y - a.y != 0.0 && b.x - a.x != 0.0 -> {
-            a1 = (b.y - a.y) / (b.x - a.x)
+        b.y.toDouble() - a.y.toDouble() != 0.0 && b.x.toDouble() - a.x.toDouble() != 0.0 -> {
+            a1 = (b.y.toDouble() - a.y.toDouble()) / (b.x.toDouble() - a.x.toDouble())
             a90 = -1 / a1
-            b1 = center.y - a90 * center.x
+            b1 = center.y.toDouble() - a90 * center.x.toDouble()
             point1 = Point(0.0, b1)
             point2 = Point(-b1 / a90, 0.0)
         }
-        b.y - a.y == 0.0 -> return Line((center), PI / 2)
+        b.y.toDouble() - a.y.toDouble() == 0.0 -> return Line((center), PI / 2)
         else -> return Line((center), 0.0)
     }
     return (lineByPoints(point1, point2))
