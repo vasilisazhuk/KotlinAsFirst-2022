@@ -100,18 +100,18 @@ fun timesInStr(inputStr: String, gotPattern: String): Int {
 
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val result = mutableMapOf<String, Int>()
-    val listOfSubstrings = substrings.toSet().toList()
-    for (i in listOfSubstrings.indices) {
-        if (!result.contains(listOfSubstrings[i])) result[listOfSubstrings[i]] = 0
+    for (i in substrings.toSet().toList().indices) {
+        if (!result.contains(substrings.toSet().toList()[i])) result[substrings.toSet().toList()[i]] = 0
         for (line in File(inputName).readLines()) {
-            if (line.toLowerCase().contains(listOfSubstrings[i].toLowerCase())) {
+            if (line.toLowerCase().contains(substrings.toSet().toList()[i].toLowerCase())) {
                 var times = 0
                 val someList: MutableList<String> =
                     line.toString().lowercase().toList()
-                        .windowed(listOfSubstrings[i].length) { it.joinToString(separator = "") }.toMutableList()
-                someList.removeIf { it.lowercase() != substrings[i].toLowerCase() }
+                        .windowed(substrings.toSet().toList()[i].length) { it.joinToString(separator = "") }
+                        .toMutableList()
+                someList.removeIf { it != substrings.toSet().toList()[i].toLowerCase() }
                 times = someList.size
-                result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times!!
+                result[substrings.toSet().toList()[i]] = result[substrings.toSet().toList()[i]]!! + times
             }
         }
     }
