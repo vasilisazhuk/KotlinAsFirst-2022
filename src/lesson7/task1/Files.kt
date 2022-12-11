@@ -105,7 +105,12 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
         if (!result.contains(substrings[i])) result[listOfSubstrings[i]] = 0
         for (line in File(inputName).readLines()) {
             if (line.toLowerCase().contains(listOfSubstrings[i].toLowerCase())) {
-                val times = timesInStr(line.toLowerCase(), listOfSubstrings[i].toLowerCase())
+                var times = 0
+                val someList: MutableList<String> =
+                    line.toString().lowercase().toList()
+                        .windowed(listOfSubstrings[i].length) { it.joinToString(separator = "") }.toMutableList()
+                someList.removeIf { it.lowercase() != substrings[i].toLowerCase() }
+                times = someList.size
                 result[listOfSubstrings[i]] = result[listOfSubstrings[i]]!! + times
             }
         }

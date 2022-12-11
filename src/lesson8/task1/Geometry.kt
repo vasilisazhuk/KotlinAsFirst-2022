@@ -149,16 +149,16 @@ class Line private constructor(val b: Double, val angle: Double) {
     fun crossPoint(other: Line): Point {
         var x = 0.0
         var y = 0.0
-        if (angle != 0.0 || other.angle != 0.0) {
-            x =
-                (other.b * cos(angle) - b * cos(other.angle)) / (sin(angle) * cos(other.angle) - sin(other.angle) * cos(
-                    angle
-                ))
-            y = (x * sin(other.angle) + other.b) / cos(other.angle)
+        /** if (angle != 0.0 || other.angle != 0.0) {
+        x =
+        (other.b * cos(angle) - b * cos(other.angle) / (sin(angle) * cos(other.angle) - sin(other.angle) * cos(
+        angle
+        )))
+        y = (x * sin(other.angle) + other.b) / cos(other.angle)
         } else {
-            x = -b / sin(angle)
-            y = (x * sin(angle) - b) / cos(angle)
-        }
+        x = -b / sin(angle)
+        y = (x * sin(angle) - b) / cos(angle)
+        }*/
         return Point(x, y)
     }
 
@@ -172,7 +172,6 @@ class Line private constructor(val b: Double, val angle: Double) {
 
     override fun toString() = "Line(${cos(angle)} * y = ${sin(angle)} * x + $b)"
 }
-
 /**
  * Средняя (3 балла)
  *
