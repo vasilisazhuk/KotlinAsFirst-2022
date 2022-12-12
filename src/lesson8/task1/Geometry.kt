@@ -195,7 +195,7 @@ fun lineByPoints(a: Point, b: Point): Line {
     var angle = 0.0
     angle = when {
         a.x != b.x && a.y != b.y -> {
-            atan((abs(b.y - a.y)) / abs(b.x - a.x) % PI)
+            atan((b.y - a.y) / abs(b.x - a.x))
         }
         a.y == b.y -> 0.0
         else -> PI / 2
