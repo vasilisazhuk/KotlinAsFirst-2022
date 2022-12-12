@@ -149,16 +149,23 @@ class Line private constructor(val b: Double, val angle: Double) {
     fun crossPoint(other: Line): Point {
         var x = 0.0
         var y = 0.0
-        /** if (angle != 0.0 || other.angle != 0.0) {
-        x =
-        (other.b * cos(angle) - b * cos(other.angle) / (sin(angle) * cos(other.angle) - sin(other.angle) * cos(
-        angle
-        )))
-        y = (x * sin(other.angle) + other.b) / cos(other.angle)
-        } else {
-        x = -b / sin(angle)
-        y = (x * sin(angle) - b) / cos(angle)
-        }*/
+        when {
+            angle == PI / 2 -> {
+                x = -b / sin(angle)
+                y = (x * sin(other.angle) + other.b) / cos(other.angle)
+            }
+            other.angle == PI / 2 -> {
+                x = -other.b / sin(other.angle)
+                y = (x * sin(angle) + b) / cos(angle)
+            }
+            else -> {
+                x =
+                    (other.b * cos(angle) - b * cos(other.angle)) / (sin(angle) * cos(other.angle) - sin(other.angle) * cos(
+                        angle
+                    ))
+                y = (x * sin(other.angle) + other.b) / cos(other.angle)
+            }
+        }
         return Point(x, y)
     }
 
@@ -185,7 +192,11 @@ fun lineBySegment(s: Segment): Line = TODO()
  * Построить прямую по двум точкам
  */
 fun lineByPoints(a: Point, b: Point): Line {
-    val angle = atan((b.y.toDouble() - a.y.toDouble()) / (b.x.toDouble() - a.x.toDouble()))
+    var angle = 0.0
+    when {
+        a.y != b.y -> angle = atan((b.y - a.y) / (b.x - a.x))
+        else -> angle = PI / 2
+    }
     return Line((b), angle)
 }
 
