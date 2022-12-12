@@ -193,13 +193,27 @@ fun lineBySegment(s: Segment): Line = TODO()
  */
 fun lineByPoints(a: Point, b: Point): Line {
     var angle = 0.0
-    angle = when {
-        (a.y > b.y && a.x > b.x) || (b.y > a.y && b.x > a.x) -> atan(abs(a.y - b.y) / abs(a.x - b.x))
-        (a.y > b.y && a.x < b.x) || (b.y > a.y && b.x < a.x) -> atan((abs(a.y - b.y) / abs(a.x - b.x))) + PI / 2
-        a.y == b.y -> 0.0
-        else -> PI / 2
+    var sin = 0.0
+    var cos = 0.0
+    when {
+        (a.y > b.y && a.x > b.x) || (b.y > a.y && b.x > a.x) -> {
+            cos = (abs(b.x - a.x) / a.distance(b))
+            sin = (abs(b.y - a.y) / a.distance(b))
+            angle = acos(cos)
+        } //atan(abs(a.y - b.y) / abs(a.x - b.x))
+        (a.y > b.y && a.x < b.x) || (b.y > a.y && b.x < a.x) -> {
+            cos = (-abs(b.x - a.x) / a.distance(b))
+            sin = (abs(b.y - a.y) / a.distance(b))
+            angle = acos(cos)
+        }//atan((abs(a.y - b.y) / abs(a.x - b.x))) + PI / 2
+        a.y == b.y -> {
+            angle = 0.0
+        }
+        else -> {
+            angle = PI / 2
+        }
     }
-    return Line((b), angle)
+    return Line(Point(a.x, a.y), angle)
 }
 
 /**
