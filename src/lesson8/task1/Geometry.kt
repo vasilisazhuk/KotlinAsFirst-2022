@@ -194,11 +194,8 @@ fun lineBySegment(s: Segment): Line = TODO()
 fun lineByPoints(a: Point, b: Point): Line {
     var angle = 0.0
     angle = when {
-        a.x < b.x && a.y != b.y -> {
-            atan(((b.y - a.y) / (b.x - a.x)) % PI)
-        }
-        a.x > b.x && a.y != b.y -> {
-            atan(((a.y - b.y) / (a.x - b.y)) % PI)
+        a.x != b.x && a.y != b.y -> {
+            atan((abs(b.y - a.y)) / abs(b.x - a.x) % PI)
         }
         a.y == b.y -> 0.0
         else -> PI / 2
