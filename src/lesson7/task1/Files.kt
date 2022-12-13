@@ -215,8 +215,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             val light = actualLine.length
             for ((i, part) in parts.withIndex()) {
                 if (parts.size > 1) {
-                    var whiteSpace = (maxStr - light) / (parts.size - 1).toDouble()
-                    if (whiteSpace % 10 != 0.0) whiteSpace += 1
+                    var whiteSpace = (maxStr - actualLine.replace(Regex(""" +"""), "").length) / (parts.size - 1).toDouble()
+                    //if (whiteSpace % 10 != 0.0) whiteSpace += 1
                     writer.write(part.trim())
                     when {
                         i <= ((maxStr - actualLine.length) % (parts.size - 1)) - 1 -> writer.write(
