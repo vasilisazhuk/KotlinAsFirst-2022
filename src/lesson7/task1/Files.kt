@@ -196,7 +196,47 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var maxStr = 0
+    for (line in File(inputName).readLines()) {
+        if (line.contains(Regex(""" +"""))) {
+            line.replace(Regex(""" +"""), " ")
+            if (line.trim().replace(Regex(""" +"""), " ").length > maxStr) maxStr =
+                line.trim().replace(Regex(""" +"""), " ").length
+        }
+    }
+    for (line in File(inputName).readLines()) {
+        if (line.trim().replace(Regex("""\s+"""), " ").length == maxStr) {
+            writer.write(line.trim())
+            writer.newLine()
+        } else {
+            val actualLine = line.replace(Regex(""" +"""), " ").trim()
+            val parts = actualLine.split(Regex(""" """))
+            val light = actualLine.length
+            for ((i, part) in parts.withIndex()) {
+                if (parts.size > 1) {
+                    var whiteSpace = (maxStr - light) / (parts.size - 1).toDouble()
+                    if (whiteSpace % 10 != 0.0) whiteSpace += 1
+                    writer.write(part.trim())
+                    when {
+                        i <= ((maxStr - actualLine.length) % (parts.size - 1)) - 1 -> writer.write(
+                            List((whiteSpace + 1).toInt()) { " " }.joinToString(
+                                separator = ""
+                            )
+                        )
+                        i > ((maxStr - actualLine.length) % (parts.size - 1)) - 1 && i < parts.size - 1 -> writer.write(
+                            List(
+                                whiteSpace.toInt()
+                            ) { " " }.joinToString(separator = "")
+                        )
+                        else -> writer.write("")
+                    }
+                } else writer.write(part.trim())
+            }
+            writer.newLine()
+        }
+    }
+    writer.close()
 }
 
 /**
