@@ -210,7 +210,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             writer.write(line.trim())
             writer.newLine()
         } else {
-            val actualLine = line.replace(Regex(""" +"""), " ").trim()
+            val actualLine = line.replace(Regex("""  +"""), " ").trim()
             val parts = actualLine.split(Regex(""" """))
             val light = actualLine.length
             for ((i, part) in parts.withIndex()) {
