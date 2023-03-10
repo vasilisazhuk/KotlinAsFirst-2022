@@ -25,6 +25,7 @@ import kotlin.math.pow
  * Старшие коэффициенты, равные нулю, игнорировать, например Polynom(0.0, 0.0, 5.0, 3.0) соответствует 5x+3
  */
 class Polynom(vararg coeffs: Double) {
+    //private constructor(): this()
 
     private fun bringToMap(coeffs: DoubleArray): MutableMap<Int, Double> {
         val rtd = mutableMapOf<Int, Double>()
@@ -70,21 +71,14 @@ class Polynom(vararg coeffs: Double) {
      */
     private fun additionMaps(mapA: MutableMap<Int, Double>, mapB: MutableMap<Int, Double>): MutableMap<Int, Double> {
         val result = mutableMapOf<Int, Double>()
-        val intersect = mapA.keys.intersect(mapB.keys)
         for (i in mapA.keys + mapB.keys) {
             when {
-                i in intersect -> {
+                mapA[i] != null && mapB[i] != null -> {
                     val ratio = mapA[i]!! + mapB[i]!!
                     if (ratio != 0.0) result[i] = ratio
                 }
-                i in mapA.keys && i !in mapB.keys -> {
-                    val ratio = mapA[i]!!
-                    result[i] = ratio
-                }
-                else -> {
-                    val ratio = mapB[i]
-                    result[i] = ratio!!
-                }
+                mapA[i] != null && mapB[i] == null -> result[i] = mapA[i]!!
+                else -> result[i] = mapB[i]!!
             }
         }
         return result
@@ -97,8 +91,8 @@ class Polynom(vararg coeffs: Double) {
      */
     operator fun unaryMinus(): Polynom {
         val map = mutableMapOf<Int, Double>()
-        for (i in this.map.keys) {
-            map[i] = -this.map[i]!!
+        for ((key, value) in this.map) {
+            map[key] = -value
         }
         return fromMap(map)
     }
@@ -108,21 +102,14 @@ class Polynom(vararg coeffs: Double) {
      */
     private fun subtractionMaps(mapA: MutableMap<Int, Double>, mapB: MutableMap<Int, Double>): MutableMap<Int, Double> {
         val result = mutableMapOf<Int, Double>()
-        val intersect = mapA.keys.intersect(mapB.keys)
-        for (i in mapA.keys + mapB.keys){
+        for (i in mapA.keys + mapB.keys) {
             when {
-                i in intersect -> {
+                mapA[i] != null && mapB[i] != null -> {
                     val ratio = mapA[i]!! - mapB[i]!!
-                    if(ratio != 0.0) result[i] = ratio
+                    if (ratio != 0.0) result[i] = ratio
                 }
-                i in mapA.keys && i !in mapB.keys -> {
-                    val ratio = mapA[i]
-                    result[i] = ratio!!
-                }
-                i in mapB.keys && i !in mapA.keys-> {
-                    val ratio = mapB[i]!! * (-1.0)
-                    result[i] = ratio
-                }
+                mapA[i] != null && mapB[i] == null -> result[i] = mapA[i]!!
+                else -> result[i] = -mapB[i]!!
             }
         }
         return result
