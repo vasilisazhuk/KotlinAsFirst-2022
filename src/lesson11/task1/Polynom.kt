@@ -33,14 +33,6 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
 
     constructor(vararg args: Double) : this(bringToMap(args))
 
-    /**private fun fromMap(map: Map<Int, Double>): Polynom {
-    val coeffs = DoubleArray(map.keys.max() + 1) { 0.0 }
-    for (i in coeffs.indices) {
-    if (i in map.keys) coeffs[map.keys.max() - i] = map[i]!!
-    }
-    return Polynom(*coeffs)
-    }*/
-
     private fun getMaxDegree(mutableMap: Map<Int, Double>): Int = mutableMap.keys.max()
 
     /**
@@ -96,7 +88,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
     /**
      * Вычитание
      */
-    private fun subtractionMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): MutableMap<Int, Double> {
+    private fun subtractionMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): Map<Int, Double> {
         val result = mutableMapOf<Int, Double>()
         for (i in mapA.keys + mapB.keys) {
             when {
@@ -167,8 +159,8 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
      * Взятие остатка
      */
     operator fun rem(other: Polynom): Polynom {
-        val mapA = this.map.toMap()
-        val mapB = other.map.toMap()
+        val mapA = this.map
+        val mapB = other.map
         val a = divideMaps(mapA, mapB)
         val b = multiplicationMaps(a, mapB)
         return Polynom(subtractionMaps(mapA, b))
