@@ -88,22 +88,22 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
     /**
      * Вычитание
      */
-    private fun subtractionMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): Map<Int, Double> {
-        val result = mutableMapOf<Int, Double>()
-        for (i in mapA.keys + mapB.keys) {
-            when {
-                mapA[i] != null && mapB[i] != null -> {
-                    val ratio = mapA[i]!! - mapB[i]!!
-                    if (ratio != 0.0) result[i] = ratio
-                }
-                mapA[i] != null && mapB[i] == null -> result[i] = mapA[i]!!
-                else -> result[i] = -mapB[i]!!
-            }
-        }
-        return result
+    /**private fun subtractionMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): Map<Int, Double> {
+    val result = mutableMapOf<Int, Double>()
+    for (i in mapA.keys + mapB.keys) {
+    when {
+    mapA[i] != null && mapB[i] != null -> {
+    val ratio = mapA[i]!! - mapB[i]!!
+    if (ratio != 0.0) result[i] = ratio
     }
+    mapA[i] != null && mapB[i] == null -> result[i] = mapA[i]!!
+    else -> result[i] = -mapB[i]!!
+    }
+    }
+    return result
+    }*/
 
-    operator fun minus(other: Polynom): Polynom = Polynom(subtractionMaps(this.map, other.map))
+    operator fun minus(other: Polynom): Polynom = Polynom(additionMaps(this.map, other.unaryMinus().map))
 
     /**
      * Умножение
@@ -148,7 +148,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
             val a = mutableMapOf<Int, Double>()
             a[getMaxDegree(actualMap) - getMaxDegree(mapB)] =
                 actualMap[getMaxDegree(actualMap)]!! / mapB[getMaxDegree(mapB)]!!
-            actualMap = subtractionMaps(actualMap, multiplicationMaps(mapB, a))
+            actualMap = additionMaps(actualMap, Polynom(multiplicationMaps(mapB, a)).unaryMinus().map)
         }
         return interSheet
     }
@@ -163,7 +163,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
         val mapB = other.map
         val a = divideMaps(mapA, mapB)
         val b = multiplicationMaps(a, mapB)
-        return Polynom(subtractionMaps(mapA, b))
+        return Polynom(additionMaps(mapA, Polynom(b).unaryMinus().map))
     }
 
     /**
