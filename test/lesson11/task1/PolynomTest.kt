@@ -62,9 +62,14 @@ class PolynomTest {
         val a = Polynom(0.0, 2.0)
         val b = Polynom(3.0, 4.0, 4.0)
         val c = Polynom(-1.0)
+        val d = Polynom(-2.0)
+        val p1 = Polynom(1.0, -2.0, -1.0, 4.0)
+        val p2 = Polynom(-1.0, -2.0, -3.0, 0.0)
         assertEquals(Polynom(1.0), a + c)
         assertEquals(Polynom(3.0, 4.0, 6.0), a + b)
         assertEquals(Polynom(3.0, 4.0, 3.0), b + c)
+        assertEquals(Polynom(0.0), a + d)
+        assertEquals(Polynom(-4.0, -4.0, 4.0), p1 + p2)
     }
 
     @Test

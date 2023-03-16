@@ -58,18 +58,15 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
      * Сложение
      */
     private fun additionMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): Map<Int, Double> {
-        val result = mutableMapOf<Int, Double>()
+        val result = (mapA + mapB).toMutableMap()
         for (i in mapA.keys + mapB.keys) {
-            when {
-                mapA[i] != null && mapB[i] != null -> {
-                    val ratio = mapA[i]!! + mapB[i]!!
-                    if (ratio != 0.0) result[i] = ratio
-                }
-                mapA[i] != null && mapB[i] == null -> result[i] = mapA[i]!!
-                else -> result[i] = mapB[i]!!
-            }
+            val a = mapA[i]
+            val b = mapB[i]
+            if (i in mapA.keys && i in mapB.keys && a!! + b!! != 0.0) {
+                result[i] = a + b
+            } else if (i in mapA.keys && i in mapB.keys && a!! + b!! == 0.0) result.keys.remove(i)
         }
-        return result
+        return result.ifEmpty { mapOf(0 to 0.0) }
     }
 
     operator fun plus(other: Polynom): Polynom = Polynom(additionMaps(this.map, other.map))
@@ -77,32 +74,20 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
     /**
      * Смена знака (при всех слагаемых)
      */
-    operator fun unaryMinus(): Polynom {
-        val map = mutableMapOf<Int, Double>()
-        for ((key, value) in this.map) {
-            map[key] = -value
+
+    private fun negativeMap(map: Map<Int, Double>): Map<Int, Double> {
+        val res = map.toMutableMap()
+        for ((key, value) in map) {
+            res[key] = -value
         }
-        return Polynom(map)
+        return res
     }
+
+    operator fun unaryMinus(): Polynom = Polynom(negativeMap(this.map))
 
     /**
      * Вычитание
      */
-    /**private fun subtractionMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): Map<Int, Double> {
-    val result = mutableMapOf<Int, Double>()
-    for (i in mapA.keys + mapB.keys) {
-    when {
-    mapA[i] != null && mapB[i] != null -> {
-    val ratio = mapA[i]!! - mapB[i]!!
-    if (ratio != 0.0) result[i] = ratio
-    }
-    mapA[i] != null && mapB[i] == null -> result[i] = mapA[i]!!
-    else -> result[i] = -mapB[i]!!
-    }
-    }
-    return result
-    }*/
-
     operator fun minus(other: Polynom): Polynom = Polynom(additionMaps(this.map, other.unaryMinus().map))
 
     /**
@@ -112,7 +97,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
     private fun multiplicationMaps(
         mapA: Map<Int, Double>,
         mapB: Map<Int, Double>
-    ): MutableMap<Int, Double> {
+    ): Map<Int, Double> {
         val interSheet = mutableMapOf<Int, Double>()
         for (i in mapA.keys) {
             for (j in mapB.keys) {
@@ -120,7 +105,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
                 else interSheet[i + j] = interSheet[i + j]!! + mapA[i]!! * mapB[j]!!
             }
         }
-        return interSheet
+        return interSheet.ifEmpty { mapOf(0 to 0.0) }
     }
 
     operator fun times(other: Polynom): Polynom = Polynom(multiplicationMaps(this.map, other.map))
@@ -134,37 +119,44 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
      * Если A / B = C и A % B = D, то A = B * C + D и степень D меньше степени B
      */
 
-    private fun divideMaps(mapA: Map<Int, Double>, mapB: Map<Int, Double>): MutableMap<Int, Double> {
+    private fun divideMaps(
+        mapA: Map<Int, Double>,
+        mapB: Map<Int, Double>
+    ): Pair<MutableMap<Int, Double>, MutableMap<Int, Double>> {
         val interSheet = mutableMapOf<Int, Double>()
         var actualMap = mapA
-        if (getMaxDegree(mapB) == 0 && mapB[getMaxDegree(mapB)] == 0.0) throw java.lang.ArithmeticException("деление на ноль")
-        if (mapB == mapA) return mutableMapOf(1 to 0.0)
+        val maxDegree = getMaxDegree(mapB)
+        if (maxDegree == 0 && mapB[maxDegree] == 0.0) throw java.lang.ArithmeticException("деление на ноль")
+        if (mapB == mapA) return Pair(mutableMapOf(1 to 0.0), mutableMapOf(0 to 0.0))
         while (actualMap.isNotEmpty()) {
-            if (getMaxDegree(actualMap) >= getMaxDegree(mapB)) {
-                interSheet[getMaxDegree(actualMap) - getMaxDegree(mapB)] =
-                    actualMap[getMaxDegree(actualMap)]!! / mapB[getMaxDegree(mapB)]!!
-            }
-            if (getMaxDegree(actualMap) < getMaxDegree(mapB)) break
+            val actMapMax = getMaxDegree(actualMap)
+            interSheet[actMapMax - maxDegree] =
+                actualMap[actMapMax]!! / mapB[maxDegree]!!
+
             val a = mutableMapOf<Int, Double>()
-            a[getMaxDegree(actualMap) - getMaxDegree(mapB)] =
-                actualMap[getMaxDegree(actualMap)]!! / mapB[getMaxDegree(mapB)]!!
-            actualMap = additionMaps(actualMap, Polynom(multiplicationMaps(mapB, a)).unaryMinus().map)
+            a[actMapMax - maxDegree] =
+                actualMap[actMapMax]!! / mapB[maxDegree]!!
+
+            val x = multiplicationMaps(mapB, a)
+
+            actualMap = additionMaps(actualMap, negativeMap(x))
+            if (actMapMax <= maxDegree) break
+
         }
-        return interSheet
+        return Pair(
+            interSheet,
+            actualMap.toMutableMap()
+        )
     }
 
-    operator fun div(other: Polynom): Polynom = Polynom(divideMaps(this.map, other.map))
+    /***/
+
+    operator fun div(other: Polynom): Polynom = Polynom(divideMaps(this.map, other.map).first)
 
     /**
      * Взятие остатка
      */
-    operator fun rem(other: Polynom): Polynom {
-        val mapA = this.map
-        val mapB = other.map
-        val a = divideMaps(mapA, mapB)
-        val b = multiplicationMaps(a, mapB)
-        return Polynom(additionMaps(mapA, Polynom(b).unaryMinus().map))
-    }
+    operator fun rem(other: Polynom): Polynom = Polynom(divideMaps(this.map, other.map).second)
 
     /**
      * Сравнение на равенство
