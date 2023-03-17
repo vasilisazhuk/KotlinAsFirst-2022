@@ -62,7 +62,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
         for (i in mapA.keys + mapB.keys) {
             val a = mapA[i]
             val b = mapB[i]
-            if (i in mapA.keys && i in mapB.keys && a!! + b!! != 0.0) {
+            if (a != null && b != null && a + b != 0.0) {
                 result[i] = a + b
             } else if (i in mapA.keys && i in mapB.keys && a!! + b!! == 0.0) result.keys.remove(i)
         }
@@ -122,7 +122,7 @@ class Polynom private constructor(private val map: Map<Int, Double>) {
     private fun divideMaps(
         mapA: Map<Int, Double>,
         mapB: Map<Int, Double>
-    ): Pair<MutableMap<Int, Double>, MutableMap<Int, Double>> {
+    ): Pair<Map<Int, Double>, Map<Int, Double>> {
         val interSheet = mutableMapOf<Int, Double>()
         var actualMap = mapA
         val maxDegree = getMaxDegree(mapB)
